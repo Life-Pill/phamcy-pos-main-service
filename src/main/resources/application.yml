@@ -1,6 +1,6 @@
 spring:
   application:
-    name: all-service
+    name: MAIN-SERVICE
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/inventory-microservice
@@ -25,3 +25,9 @@ server:
 logging:
   level:
     org.springframework.security: TRACE
+
+eureka:
+  instance:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
