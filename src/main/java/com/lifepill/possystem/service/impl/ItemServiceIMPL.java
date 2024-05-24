@@ -3,8 +3,6 @@ package com.lifepill.possystem.service.impl;
 import com.lifepill.possystem.dto.ApiResponseDTO.SupplierItemApiResponseDTO;
 import com.lifepill.possystem.dto.ItemCategoryDTO;
 import com.lifepill.possystem.dto.SupplierAndSupplierCompanyDTO;
-import com.lifepill.possystem.dto.SupplierCompanyDTO;
-import com.lifepill.possystem.dto.SupplierDTO;
 import com.lifepill.possystem.dto.paginated.PaginatedResponseItemDTO;
 import com.lifepill.possystem.dto.requestDTO.ItemSaveRequestCategoryDTO;
 import com.lifepill.possystem.dto.requestDTO.ItemSaveRequestDTO;
@@ -19,6 +17,7 @@ import com.lifepill.possystem.exception.NotFoundException;
 import com.lifepill.possystem.repo.branchRepository.BranchRepository;
 import com.lifepill.possystem.repo.itemRepository.ItemCategoryRepository;
 import com.lifepill.possystem.repo.itemRepository.ItemRepository;
+import com.lifepill.possystem.service.APIClient;
 import com.lifepill.possystem.service.ItemService;
 import com.lifepill.possystem.util.mappers.ItemMapper;
 import lombok.AllArgsConstructor;
@@ -44,7 +43,8 @@ public class ItemServiceIMPL implements ItemService {
     private ModelMapper modelMapper;
     private ItemMapper itemMapper;
     private ItemCategoryRepository itemCategoryRepository;
-    private RestTemplate restTemplate;
+  //  private RestTemplate restTemplate;
+    private APIClient apiClient;
 
     /**
      * Saves a new item based on the provided item save request DTO.
@@ -474,16 +474,14 @@ public class ItemServiceIMPL implements ItemService {
 
         //rest template supplier
         //TODO: need to create supplier service when given supplier id to retrieve supplier and supplier company details
-        ResponseEntity<SupplierAndSupplierCompanyDTO> responseEntityForSupplier =restTemplate.getForEntity(
+       /* ResponseEntity<SupplierAndSupplierCompanyDTO> responseEntityForSupplier =restTemplate.getForEntity(
                 "http://localhost:8082/lifepill/v1/supplier/get-supplier-with-company/"+item.getSupplierId(),
                 SupplierAndSupplierCompanyDTO.class
-                );
+                );*/
+        // SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO = responseEntityForSupplier.getBody();
 
-        SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO = responseEntityForSupplier.getBody();
 
-
-        // Map Supplier
-
+        SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO = apiClient.getSupplierAndCompanyBySupplierId(item.getSupplierId());
 
 
         //TODO: Map Supplier
