@@ -14,6 +14,4 @@ import lombok.*;
 public class ItemGetIdResponseDTO {
        private ItemGetAllResponseDTO itemGetAllResponseDTO;
         private ItemCategoryDTO itemCategoryDTO;
-        private SupplierDTO supplierDTO;
-        private SupplierCompanyDTO supplierCompanyDTO;
 }
