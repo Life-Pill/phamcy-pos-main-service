@@ -47,9 +47,9 @@ public class PosSystemApplication {
 		SpringApplication.run(PosSystemApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public RestTemplate restTemplate(){
 		return new RestTemplate();
-	}
+	}*/
 }
 
