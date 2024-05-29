@@ -1,5 +1,4 @@
 package com.lifepill.possystem.service.impl;
-
 import com.lifepill.possystem.dto.ApiResponseDTO.SupplierItemApiResponseDTO;
 import com.lifepill.possystem.dto.ItemCategoryDTO;
 import com.lifepill.possystem.dto.SupplierAndSupplierCompanyDTO;
@@ -134,7 +133,6 @@ public class ItemServiceIMPL implements ItemService {
             throw new NotFoundException("No Item Find or OUT of Stock");
         }
     }
-
 
     /**
      * Retrieves items by name and stock status.
@@ -481,7 +479,8 @@ public class ItemServiceIMPL implements ItemService {
         // SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO = responseEntityForSupplier.getBody();
 
 
-        SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO = apiClient.getSupplierAndCompanyBySupplierId(item.getSupplierId());
+        SupplierAndSupplierCompanyDTO supplierAndSupplierCompanyDTO =
+                apiClient.getSupplierAndCompanyBySupplierId(item.getSupplierId());
 
 
         //TODO: Map Supplier

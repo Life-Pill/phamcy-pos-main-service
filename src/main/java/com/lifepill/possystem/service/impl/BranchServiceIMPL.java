@@ -100,22 +100,7 @@ public class BranchServiceIMPL implements BranchService {
         if (branchRepository.existsById(branchId)){
             Branch branch = branchRepository.getReferenceById(branchId);
 
-            // can use mappers to easily below that task
-            BranchDTO branchDTO  = new BranchDTO(
-                   branch.getBranchId(),
-                    branch.getBranchName(),
-                    branch.getBranchAddress(),
-                    branch.getBranchContact(),
-                    branch.getBranchFax(),
-                    branch.getBranchEmail(),
-                    branch.getBranchDescription(),
-                    branch.getBranchImage(),
-                    branch.isBranchStatus(),
-                    branch.getBranchLocation(),
-                    branch.getBranchCreatedOn(),
-                    branch.getBranchCreatedBy()
-            );
-            return branchDTO;
+            return modelMapper.map(branch, BranchDTO.class);
         }else {
             throw  new NotFoundException("No Branch found for that id");
         }

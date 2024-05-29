@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AppWideExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<StandardResponse> handleNotFoundException(NotFoundException e) {
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse(404, "Error Cumming", e.getMessage()),
+        return new ResponseEntity<>(
+                new StandardResponse(404, "Error", e.getMessage()),
                 HttpStatus.NOT_FOUND
         );
     }
@@ -29,10 +29,10 @@ public class AppWideExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
 
-
         // Provide a meaningful error message to the client
         String errorMessage = "An error occurred while processing your request. Please try again later.";
 
+        // Return the error message with an internal server error status
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
 }

@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface BranchService {
 
-    public void saveBranch(BranchDTO branchDTO, MultipartFile image);
+    void saveBranch(BranchDTO branchDTO, MultipartFile image);
 
     byte[] getImageData(long branchId);
 
     List<BranchDTO> getAllBranches();
 
-    public BranchDTO getBranchById(long branchId);
+    BranchDTO getBranchById(long branchId);
 
     String deleteBranch(long branchId);
 
