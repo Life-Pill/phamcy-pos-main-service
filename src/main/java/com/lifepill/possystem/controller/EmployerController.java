@@ -42,12 +42,18 @@ public class EmployerController {
      * @return A string indicating the success of the operation.
      */
     @PostMapping("/save-without-image")
-    public ResponseEntity<StandardResponse> saveCashierWithoutImage(@RequestBody EmployerWithoutImageDTO cashierWithoutImageDTO) {
+    public ResponseEntity<StandardResponse> saveCashierWithoutImage(
+            @RequestBody EmployerWithoutImageDTO cashierWithoutImageDTO
+    ) {
         employerService.saveEmployerWithoutImage(cashierWithoutImageDTO);
 
         System.out.println(cashierWithoutImageDTO.getEmployerId());
-        return new ResponseEntity<>(
-                new StandardResponse(201, "successfully saved", cashierWithoutImageDTO),
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        201,
+                        "successfully saved",
+                        cashierWithoutImageDTO
+                ),
                 HttpStatus.CREATED
         );
     }
@@ -120,8 +126,12 @@ public class EmployerController {
             @RequestBody EmployerAllDetailsUpdateDTO cashierAllDetailsUpdateDTO
     ) {
         String message = employerService.updateEmployer(employerId, cashierAllDetailsUpdateDTO);
-        return new ResponseEntity<>(
-                new StandardResponse(201, message, null),
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        201,
+                        message,
+                        cashierAllDetailsUpdateDTO
+                ),
                 HttpStatus.OK
         );
     }
@@ -138,8 +148,12 @@ public class EmployerController {
             @RequestBody EmployerUpdateAccountDetailsDTO cashierUpdateAccountDetailsDTO
     ) {
         String message = employerService.updateEmployerAccountDetails(cashierUpdateAccountDetailsDTO);
-        return new ResponseEntity<>(
-                new StandardResponse(201, message, null),
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        201,
+                        message,
+                        cashierUpdateAccountDetailsDTO
+                ),
                 HttpStatus.OK
         );
     }
@@ -296,25 +310,6 @@ public class EmployerController {
             // If an exception occurs (e.g., employer not found), return a not found response
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new StandardResponse(404, ex.getMessage(), null));
-        }
-    }
-
-    /**
-     * Retrieves all employers with bank details.
-     *
-     * @return ResponseEntity containing a list of EmployerWithBankDTO objects,
-     * or an HTTP status indicating the failure if no employers are found.
-     */
-    @GetMapping("/employers-with-bank-details")
-    public ResponseEntity<StandardResponse> getAllEmployersWithBankDetails() {
-        List<EmployerWithBankDTO> allEmployersWithBankDetails = employerService.getAllEmployersWithBankDetails();
-        if (allEmployersWithBankDetails != null && !allEmployersWithBankDetails.isEmpty()) {
-            return ResponseEntity.ok(
-                    new StandardResponse(200, "SUCCESS", allEmployersWithBankDetails)
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new StandardResponse(404, "No employers found", null));
         }
     }
 
