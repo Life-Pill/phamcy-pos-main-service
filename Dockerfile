@@ -1,4 +1,17 @@
-FROM openjdk:17
+# Start with a base image containing Java runtime
+FROM openjdk:17-jdk-slim
+
+# Add a volume pointing to /tmp
+VOLUME /tmp
+
+# Make port 8080 available to the world outside this container
 EXPOSE 8081
-ADD target/pos-system-0.0.1-SNAPSHOT.jar pos-system-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "/pos-system-0.0.1-SNAPSHOT.jar"]
+
+# The application's jar file
+ARG JAR_FILE=target/pos-system-0.0.1-SNAPSHOT.jar
+
+# Add the application's jar to the container
+ADD ${JAR_FILE} pos-system.jar
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "/pos-system.jar"]
