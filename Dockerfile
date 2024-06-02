@@ -1,17 +1,21 @@
-# Start with a base image containing Java runtime
+#Use a base image with Java 17
 FROM openjdk:17-jdk-slim
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+# Set the working directory inside the container
+WORKDIR /app
 
-# Make port 8080 available to the world outside this container
+# Copy the Maven build artifact (jar file) to the working directory
+COPY target/pos-system-0.0.1-SNAPSHOT.jar pos-system.jar
+
+# Expose the port the application runs on
 EXPOSE 8081
 
-# The application's jar file
+# Copy the application's jar to the container
 ARG JAR_FILE=target/pos-system-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} pos-system.jar
 
-# Add the application's jar to the container
-ADD ${JAR_FILE} pos-system.jar
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "/pos-system.jar"]
+ENTRYPOINT ["java", "-jar", "pos-system.jar"]
+
+#TODO Database connection
